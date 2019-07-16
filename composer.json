@@ -1,0 +1,44 @@
+{
+    "name": "ettemlevest/eloquent-additional-details",
+    "description": "Additional details functionality for Laravel Eloquent models.",
+    "keywords": ["laravel", "eloquent", "details", "additional details"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Imre Nagy",
+            "email": "ettemlevest@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|~5.9.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ettemlevest\\AdditionalDetails\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ettemlevest\\AdditionalDetails\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-master": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Ettemlevest\\AdditionalDetails\\AdditionalDetailsServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

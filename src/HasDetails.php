@@ -6,24 +6,51 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Ettemlevest\AdditionalDetails\Models\Detail;
 use Ettemlevest\AdditionalDetails\Models\DetailDefinition;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasDetails
 {
-    public function getDetailsAttribute()
+    /**
+     * Get a compact collection with the details associated the the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getDetailsAttribute(): Collection
     {
-        return $this->additional_details->mapWithKeys(function ($item) {
+        return $this->additional_details->mapWithKeys(function (Detail $item) {
             return [$item->definition->description => $item->value];
         });
     }
 
-    public function additional_details()
+    /**
+     * Detail resources associated with the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function additional_details(): MorphMany
     {
         return $this->morphMany(Detail::class, 'model');
     }
 
-    public function setDetail($name, $value)
+    /**
+     * Set a detail's value for the model.
+     *
+     * Creates it if not already exists. Will delete detail when called
+     * with $value = null.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @throws Exception
+     * @return boolean
+     */
+    public function setDetail(string $name, $value): bool
     {
-        $detail = $this->additional_details()->get()->where('definition.slug', $name)->first();
+        $detail = $this
+            ->additional_details()
+            ->get()
+            ->where('definition.slug', $name)
+            ->first();
 
         // validate model has the searched detail, throw exception
         if (! DetailDefinition::whereSlug($name)->count()) {
@@ -34,13 +61,15 @@ trait HasDetails
         if ($value === null) {
             return $this->additional_details()->whereHas('definition', function (Builder $query) use ($name) {
                 $query->where('slug', $name);
-            })->delete();
+            })->delete() === 1;
         }
 
         // create detail if not exists
         if (! $detail) {
             $detail = new Detail();
-            $detail->definition()->associate(DetailDefinition::whereSlug($name)->first());
+            $detail->definition()->associate(
+                DetailDefinition::whereSlug($name)->first()
+            );
         }
 
         $detail->value = $value;

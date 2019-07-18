@@ -21,7 +21,7 @@ class AdditionalDetailsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPublishing()
+    protected function registerPublishing(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([

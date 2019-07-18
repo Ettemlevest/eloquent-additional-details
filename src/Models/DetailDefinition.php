@@ -10,12 +10,27 @@ class DetailDefinition extends Model
 {
     use HasSlug;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'detail_definitions';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'model_type', 'description',
     ];
 
+    /**
+     * Get the options for generating slugs.
+     *
+     * @return \Spatie\Sluggable\SlugOptions
+     */
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -23,7 +38,12 @@ class DetailDefinition extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function getTable()
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     */
+    public function getTable(): string
     {
         return config('additional_details.table_names.detail_definitions', parent::getTable());
     }

@@ -10,7 +10,7 @@ class DetailDefinition extends Model
 {
     use HasSlug;
 
-    protected $table = 'detail_defs';
+    protected $table = 'detail_definitions';
 
     protected $fillable = [
         'model_type', 'description',
@@ -21,5 +21,10 @@ class DetailDefinition extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('description')
             ->saveSlugsTo('slug');
+    }
+
+    public function getTable()
+    {
+        return config('additional_details.table_names.detail_definitions', parent::getTable());
     }
 }

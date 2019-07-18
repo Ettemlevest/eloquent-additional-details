@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Config;
 
-class CreateDetailDefsTable extends Migration
+class CreateAdditionalDetailDefinitionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +14,7 @@ class CreateDetailDefsTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_defs', function (Blueprint $table) {
+        Schema::create(Config::get('additional_details.table_names.detail_definitions', 'detail_definitions'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('model_type');
             $table->string('slug');

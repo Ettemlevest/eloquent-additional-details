@@ -3,6 +3,8 @@
 namespace Ettemlevest\AdditionalDetails;
 
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Ettemlevest\AdditionalDetails\Models\Detail;
 use Ettemlevest\AdditionalDetails\Models\DetailDefinition;
 
 trait HasDetails

@@ -29,6 +29,6 @@ class Detail extends Model
 
     public function getTable()
     {
-        return config('additional_details.table_names.detail', parent::getTable());
+        return config('additional_details.table_names.details', parent::getTable());
     }
 }

@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Config;
 
-class CreateDetailsTable extends Migration
+class CreateAdditionalDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +14,7 @@ class CreateDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('details', function (Blueprint $table) {
+        Schema::create(Config::get('additional_details.table_names.details', 'details'), function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('definition_id');
             $table->morphs('model');

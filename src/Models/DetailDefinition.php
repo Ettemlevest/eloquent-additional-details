@@ -5,6 +5,7 @@ namespace Ettemlevest\AdditionalDetails\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Collection;
 
 class DetailDefinition extends Model
 {
@@ -46,5 +47,10 @@ class DetailDefinition extends Model
     public function getTable(): string
     {
         return config('additional_details.table_names.detail_definitions', parent::getTable());
+    }
+
+    public static function forModel(string $class): Collection
+    {
+        return DetailDefinition::where('model_type', $class)->get();
     }
 }

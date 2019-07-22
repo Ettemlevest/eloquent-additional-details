@@ -42,9 +42,9 @@ trait HasDetails
      * @param string $name
      * @param mixed $value
      * @throws Exception
-     * @return boolean
+     * @return boolean|\Ettemlevest\AdditionalDetails\Models\Detail
      */
-    public function setDetail(string $name, $value): bool
+    public function setDetail(string $name, $value)
     {
         $detail = $this
             ->additional_details()

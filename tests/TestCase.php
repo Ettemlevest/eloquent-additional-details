@@ -56,5 +56,7 @@ abstract class TestCase extends Orchestra
 
         (new \CreateAdditionalDetailDefinitionsTable)->up();
         (new \CreateAdditionalDetailsTable)->up();
+
+        User::create(['email' => 'test@example.org']);
     }
 }

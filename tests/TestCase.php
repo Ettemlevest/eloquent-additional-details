@@ -5,9 +5,12 @@ namespace Ettemlevest\AdditionalDetails\Tests;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Ettemlevest\AdditionalDetails\AdditionalDetailsServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
+use Ettemlevest\AdditionalDetails\Models\DetailDefinition;
 
 abstract class TestCase extends Orchestra
 {
+    protected $testUser;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -57,6 +60,10 @@ abstract class TestCase extends Orchestra
         (new \CreateAdditionalDetailDefinitionsTable)->up();
         (new \CreateAdditionalDetailsTable)->up();
 
-        User::create(['email' => 'test@example.org']);
+        $this->testUser = User::create(['email' => 'test@example.org']);
+
+        DetailDefinition::create(['model_type' => User::class, 'description' => 'Main test detail']);
+        DetailDefinition::create(['model_type' => User::class, 'description' => 'Another test detail']);
+        DetailDefinition::create(['model_type' => User::class, 'description' => 'Third test detail']);
     }
 }
